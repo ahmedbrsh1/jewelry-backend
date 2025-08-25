@@ -5,13 +5,14 @@ const notFound = require("./middleware/notfound");
 const errorHandler = require("./middleware/errorhandler");
 const userRouter = require("./routes/users");
 const orderRouter = require("./routes/orders");
-
+const OAuthRouter = require("./routes/oauth");
 const app = express();
 app.use(express.json());
 
 app.use("/api/products", productsRouter);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
+app.use("/api/oauth", OAuthRouter);
 
 app.use(notFound);
 app.use(errorHandler);

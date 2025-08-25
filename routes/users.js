@@ -41,6 +41,15 @@ router.use(authenticationMiddleware);
 
 router.param("userId", userAuthorizationMiddleware);
 
+router.get("/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new CustomError(404, "User not found");
+  }
+  res.status(200).json(user);
+});
+
 router.patch("/:userId", async (req, res) => {
   const { userId } = req.params;
   const user = await User.findByIdAndUpdate(userId, req.body, {
